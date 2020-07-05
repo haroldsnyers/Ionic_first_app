@@ -25,7 +25,7 @@
         <ion-list>
 <!--          takes all the places after the featured one, thus the first place -->
           <ion-item *ngFor="let place of loadedPlaces.slice(1)">
-
+<!-- squared image box-->
             <ion-thumbnail slot="start">
               <ion-img [src]="place.imageUrl"></ion-img>
             </ion-thumbnail>
