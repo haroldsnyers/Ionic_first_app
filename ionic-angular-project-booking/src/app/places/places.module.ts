@@ -11,7 +11,6 @@ import { PlacesPage } from './places.page';
 @NgModule({
   imports: [
     CommonModule,
-    FormsModule,
     IonicModule,
     PlacesPageRoutingModule
   ],
