@@ -7,16 +7,24 @@
 <ion-content class="ion-padding">
   <ion-grid>
     <ion-row>
-      <ion-col size="12" size-sm="8" offset-sm="2">
+      <ion-col size="12" size-sm="8" offset-sm="2" class="ion-text-center">
         <ion-card>
           <ion-card-header>
             <ion-card-title>{{ loadedPlaces[0].title }}</ion-card-title>
-            <ion-card-subtitle> {{ loadedPlaces[0].price }} / Night </ion-card-subtitle>
+            <ion-card-subtitle> ${{ loadedPlaces[0].price }} / Night </ion-card-subtitle>
           </ion-card-header>
           <ion-img [src]="loadedPlaces[0].imageUrl"></ion-img>
           <ion-card-content>
             <p>{{ loadedPlaces[0].description }}</p>
           </ion-card-content>
+          <div>
+            <!--      routerlink separated to really show path it takes, every element after another     -->
+            <ion-button
+                    fill="clear"
+                    color="primary"
+                    [routerLink]="['/', 'places', 'tabs', 'discover', 'loadedPlaces[0].id']"
+            >More</ion-button>
+          </div>
         </ion-card>
       </ion-col>
     </ion-row>
@@ -24,7 +32,11 @@
       <ion-col size="12" size-sm="8" offset-sm="2">
         <ion-list>
 <!--          takes all the places after the featured one, thus the first place -->
-          <ion-item *ngFor="let place of loadedPlaces.slice(1)">
+          <!-- detail can be put to show a little arrow inducing that you can click on the item -->
+          <ion-item
+                  *ngFor="let place of loadedPlaces.slice(1)"
+                  [routerLink]="['/', 'places', 'tabs', 'discover', 'place.id']"
+                  detail>
 <!-- squared image box-->
             <ion-thumbnail slot="start">
               <ion-img [src]="place.imageUrl"></ion-img>

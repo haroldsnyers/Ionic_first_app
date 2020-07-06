@@ -5,7 +5,8 @@ import {Place} from './place.model';
   providedIn: 'root'
 })
 export class PlacesService {
-  private _places: Place = [
+  // tslint:disable-next-line:variable-name
+  private _places: Place[] = [
       new Place(
           'p1',
           'Manhattan Mansion',
@@ -30,8 +31,13 @@ export class PlacesService {
   ];
 
   get places() {
+    // @ts-ignore
     return [...this._places];
   }
 
   constructor() { }
+
+  getPlace(id: string) {
+      return {...this._places.find(p => p.id === id)};
+  }
 }

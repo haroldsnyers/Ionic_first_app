@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {Router} from '@angular/router';
+import {NavController} from '@ionic/angular';
 
 @Component({
   selector: 'app-place-detail',
@@ -7,9 +9,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PlaceDetailPage implements OnInit {
 
-  constructor() { }
+    constructor(
+        private router: Router,
+        private navController: NavController
+    ) { }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+    }
 
+    onBookPlace() {
+        // this.router.navigateByUrl('/places/tabs/discover');
+        // under the hood uses the the angular router
+        this.navController.navigateBack('/places/tabs/discover');
+        // pop() has the advantage to enable going back with the right animation without
+        // specifying the path but when page is reloaded if you can't guarantee the pages on the stack it will not work
+        // this.navController.pop();
+    }
 }
