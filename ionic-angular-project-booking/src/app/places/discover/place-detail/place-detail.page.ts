@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {Router} from '@angular/router';
-import {NavController} from '@ionic/angular';
+import {ActivatedRoute, Router} from '@angular/router';
+import {ModalController, NavController} from '@ionic/angular';
+import {PlacesService} from '../../places.service';
+import {Place} from '../../place.model';
+import {CreateBookingComponent} from '../../../bookings/create-booking/create-booking.component';
 
 @Component({
   selector: 'app-place-detail',
@@ -8,21 +11,26 @@ import {NavController} from '@ionic/angular';
   styleUrls: ['./place-detail.page.scss'],
 })
 export class PlaceDetailPage implements OnInit {
+    place: Place;
 
     constructor(
-        private router: Router,
-        private navController: NavController
+        private route: ActivatedRoute,
+        private navController: NavController,
+        private placesService: PlacesService,
+        private modalCtrl: ModalController
     ) { }
 
     ngOnInit() {
+        this.route.paramMap.subscribe(paramMap => {
+            if (!paramMap.has('placeId')) {
+                this.navController.navigateBack('places/tabs/discover');
+                return;
+            }
+            this.place = this.placesService.getPlace(paramMap.get('placeId'));
+        });
     }
 
     onBookPlace() {
-        // this.router.navigateByUrl('/places/tabs/discover');
-        // under the hood uses the the angular router
-        this.navController.navigateBack('/places/tabs/discover');
-        // pop() has the advantage to enable going back with the right animation without
-        // specifying the path but when page is reloaded if you can't guarantee the pages on the stack it will not work
-        // this.navController.pop();
+        this.modalCtrl.create({component: CreateBookingComponent});
     }
 }
